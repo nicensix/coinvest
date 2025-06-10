@@ -13,7 +13,7 @@ class InvestmentSeeder extends Seeder
         DB::table('investments')->insert([
             [
                 'user_id' => 1,
-                'wallet_id' => 3, // Match actual wallet ID
+                'wallet_id' => 1, // Match actual wallet ID
                 'investment_type' => 'stocks',
                 'amount' => 2000.00,
                 'status' => 'active',
@@ -22,7 +22,7 @@ class InvestmentSeeder extends Seeder
             ],
             [
                 'user_id' => 2,
-                'wallet_id' => 4, // Match actual wallet ID
+                'wallet_id' => 2, // Match actual wallet ID
                 'investment_type' => 'crypto',
                 'amount' => 1500.00,
                 'status' => 'active',

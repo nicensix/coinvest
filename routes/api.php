@@ -11,20 +11,18 @@ use Illuminate\Support\Facades\Route;
 |
 | Here is where you can register API routes for your application.
 | These routes are loaded by the RouteServiceProvider within a group
-| which is assigned the "api" middleware group.
+| assigned to the "api" middleware group.
 |
 */
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    // Investment Routes
-    Route::post('/investments/create', [InvestmentController::class, 'store']); // Create investment
-    Route::get('/investments', [InvestmentController::class, 'index']); // Get all investments
-    Route::get('/investments/{id}', [InvestmentController::class, 'show']); // Get investment by ID
-    Route::put('/investments/{id}', [InvestmentController::class, 'update']); // Update investment
-    Route::delete('/investments/{id}', [InvestmentController::class, 'destroy']); // Delete investment
-});
+    Route::post('/investments/create', [InvestmentController::class, 'store']);
+    Route::get('/investments', [InvestmentController::class, 'index']);
+    Route::get('/investments/{id}', [InvestmentController::class, 'show']);
+    Route::put('/investments/{id}', [InvestmentController::class, 'update']);
+    Route::delete('/investments/{id}', [InvestmentController::class, 'destroy'])
 
-// Sample public route (if needed)
+// Sample public route
 Route::get('/public-data', function () {
     return response()->json(['message' => 'Public API endpoint']);
 });

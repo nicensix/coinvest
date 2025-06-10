@@ -9,27 +9,23 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('investments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('wallet_id');
-            $table->string('investment_type'); // Example: 'stocks', 'crypto'
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('wallet_id')->constrained()->onDelete('cascade');
+            $table->string('investment_type');
             $table->decimal('amount', 10, 2);
             $table->enum('status', ['active', 'closed'])->default('active');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('wallet_id')->references('id')->on('wallets')->onDelete('cascade');
         });
-
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('investments');
     }
