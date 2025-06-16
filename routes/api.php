@@ -20,7 +20,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/investments', [InvestmentController::class, 'index']);
     Route::get('/investments/{id}', [InvestmentController::class, 'show']);
     Route::put('/investments/{id}', [InvestmentController::class, 'update']);
-    Route::delete('/investments/{id}', [InvestmentController::class, 'destroy'])
+    Route::delete('/investments/{id}', [InvestmentController::class, 'destroy']);
+}); 
 
 // Sample public route
 Route::get('/public-data', function () {

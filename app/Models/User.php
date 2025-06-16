@@ -2,29 +2,17 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements MustVerifyEmail
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
-
-    /**
-     * Determine if the user has the given ability.
-     *
-     * @param  string|array  $abilities
-     * @param  array|mixed  $arguments
-     * @return bool
-     */
-    public function can($abilities, $arguments = [])
-    {
-        // You can customize this logic as needed
-        return parent::can($abilities, $arguments);
-    }
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -36,7 +24,6 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
-        'role'
     ];
 
     /**
@@ -60,5 +47,21 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the user's wallet.
+     */
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
+    }
+
+    /**
+     * Get the user's investments.
+     */
+    public function investments()
+    {
+        return $this->hasMany(Investment::class);
     }
 }
