@@ -25,6 +25,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/admin', function () {
             return 'Welcome, Admin! 🚀';
         })->name('admin.panel');
+
+        Route::get('/admin/dashboard', [\App\Http\Controllers\Admin\AdminDashboardController::class, 'index'])
+            ->name('admin.dashboard');
     });
 });
 
