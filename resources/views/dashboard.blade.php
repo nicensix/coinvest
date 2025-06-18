@@ -18,7 +18,7 @@
             <p>
                 Balance: 
                 <span class="text-green-600 font-bold">
-                    ₦{{ number_format(Auth::user()->wallet->balance ?? 0, 2) }}
+                    ${{ number_format(Auth::user()->wallet->balance ?? 0, 2) }}
                 </span>
             </p>
         </div>

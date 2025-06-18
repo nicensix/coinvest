@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\RoleController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,13 +25,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // 🛡️ Admin-only Routes
-    Route::middleware(['role:admin'])->group(function () {
-        Route::get('/admin', function () {
+    Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/', function () {
             return 'Welcome, Admin! 🚀';
-        })->name('admin.panel');
+        })->name('panel');
 
-        Route::get('/admin/dashboard', [\App\Http\Controllers\Admin\AdminDashboardController::class, 'index'])
-            ->name('admin.dashboard');
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])
+            ->name('dashboard');
+
+        // 👥 Manage Users
+        Route::get('/users/{user}/edit', [UserController::class, 'edit'])
+            ->name('users.edit');
+
+        Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+        Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+        Route::put('/roles/{role}/permissions', [RoleController::class, 'updatePermissions'])->name('roles.updatePermissions');
+
+
     });
 });
 
